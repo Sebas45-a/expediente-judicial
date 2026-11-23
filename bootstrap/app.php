@@ -42,13 +42,12 @@ $app = Application::configure(basePath: dirname(__DIR__))
 | instalación puede ser de solo lectura y las actualizaciones no borran nada.
 */
 if ($datos = getenv('EXPEDIENTE_DATOS')) {
+    // En Windows las rutas absolutas empiezan con la unidad (C:\, D:\…); Laravel solo reconoce / y \.
+    if (preg_match('/^[A-Za-z]:[\\\\\/]/', $datos)) {
+        $app->addAbsoluteCachePathPrefix(substr($datos, 0, 3));
+    }
     $app->useStoragePath($datos.DIRECTORY_SEPARATOR.'storage');
     $app->useEnvironmentPath($datos);
-}
-
-    // En Windows las rutas absolutas empiezan con la unidad (C:\, D:\…); Laravel solo reconoce / y \.
- if (preg_match('/^[A-Za-z]:[\\\\\/]/', $datos)) {
-        $app->addAbsoluteCachePathPrefix(substr($datos, 0, 3));
 }
 
 return $app;
