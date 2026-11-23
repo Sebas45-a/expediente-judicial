@@ -1,0 +1,47 @@
+name: Instalador de Windows
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: curl, fileinfo, gd, mbstring, openssl, pdo_sqlite, sqlite3, zip, dom
+          tools: composer:v2
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Usar la versión de la etiqueta
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        working-directory: desktop
+        run: npm version ("${{ github.ref_name }}".TrimStart('v')) --no-git-tag-version --allow-same-version
+
+      - name: Construir instalador
+        shell: pwsh
+        run: ./desktop/construir-windows.ps1
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instalador-windows
+          path: desktop/dist/*.exe
+
+      - name: Publicar Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: desktop/dist/*.exe
