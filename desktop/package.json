@@ -1,7 +1,7 @@
 {
   "name": "expediente-judicial-escritorio",
   "productName": "Expediente Judicial",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sistema de gestión de expedientes judiciales con IA local (aplicación de escritorio)",
   "author": "Expediente Judicial",
   "license": "MIT",

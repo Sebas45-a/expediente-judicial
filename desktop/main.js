@@ -41,7 +41,9 @@ function rutas() {
   };
 }
 
-const datos = app.getPath('userData'); // Windows: %APPDATA%\Expediente Judicial
+// Carpeta propia para los datos del sistema, separada de los archivos internos de la ventana
+// (Electron guarda su "Cache", "Local Storage", etc. en userData).
+const datos = path.join(app.getPath('userData'), 'Datos'); // Windows: %APPDATA%\Expediente Judicial\Datos
 
 function mostrarSplash() {
   splash = new BrowserWindow({
@@ -203,6 +205,10 @@ async function arrancar() {
   try {
     servidor = await iniciar({ ...r, datos, version: app.getVersion(), progreso: progresoSplash });
   } catch (e) {
+    try {
+      fs.mkdirSync(path.join(datos, 'storage', 'logs'), { recursive: true });
+      fs.appendFileSync(path.join(datos, 'storage', 'logs', 'escritorio.log'), `[${new Date().toISOString()}] ERROR: ${e.stack || e.message}\n`);
+    } catch {}
     if (splash && !splash.isDestroyed()) splash.close();
     await dialog.showMessageBox({
       type: 'error',

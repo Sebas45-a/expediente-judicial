@@ -25,7 +25,7 @@ function crearCarpetas(datos) {
     'storage/framework/sessions',
     'storage/framework/views',
     'storage/logs',
-    'cache',
+    'laravel-cache',
     'database',
     'respaldos',
     'php',
@@ -71,7 +71,7 @@ function prepararPhpIni(phpBin, datos, plantilla) {
 }
 
 function entornoPhp(datos, puerto) {
-  const cache = (n) => path.join(datos, 'cache', n);
+  const cache = (n) => path.join(datos, 'laravel-cache', n);
   return {
     ...process.env,
     EXPEDIENTE_DATOS: datos,
@@ -185,8 +185,13 @@ async function iniciar(o) {
       log(`Respaldo previo a actualización (de v${versionAnterior}).`);
     }
     const vistas = path.join(o.datos, 'storage', 'framework', 'views');
-    for (const f of fs.readdirSync(vistas)) if (f.endsWith('.php')) fs.rmSync(path.join(vistas, f), { force: true });
-    for (const f of fs.readdirSync(path.join(o.datos, 'cache'))) fs.rmSync(path.join(o.datos, 'cache', f), { force: true });
+    const borrarPhp = (dir) => {
+      for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (f.isFile() && f.name.endsWith('.php')) fs.rmSync(path.join(dir, f.name), { force: true });
+      }
+    };
+    borrarPhp(vistas);
+    borrarPhp(path.join(o.datos, 'laravel-cache'));
   }
 
   const env = entornoPhp(o.datos, null);
