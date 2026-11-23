@@ -1,0 +1,46 @@
+<?php
+
+return [
+    'accepted' => 'El campo :attribute debe ser aceptado.',
+    'array' => 'El campo :attribute debe ser una lista.',
+    'boolean' => 'El campo :attribute debe ser verdadero o falso.',
+    'date' => 'El campo :attribute no es una fecha válida.',
+    'email' => 'El campo :attribute debe ser un correo válido.',
+    'enum' => 'El valor seleccionado en :attribute no es válido.',
+    'exists' => 'El valor seleccionado en :attribute no existe.',
+    'file' => 'El campo :attribute debe ser un archivo.',
+    'in' => 'El valor seleccionado en :attribute no es válido.',
+    'integer' => 'El campo :attribute debe ser un número entero.',
+    'max' => [
+        'file' => 'El archivo :attribute no debe superar :max kilobytes.',
+        'numeric' => 'El campo :attribute no debe ser mayor que :max.',
+        'string' => 'El campo :attribute no debe tener más de :max caracteres.',
+        'array' => 'El campo :attribute no debe tener más de :max elementos.',
+    ],
+    'mimes' => 'El archivo :attribute debe ser de tipo: :values.',
+    'min' => [
+        'file' => 'El archivo :attribute debe tener al menos :min kilobytes.',
+        'numeric' => 'El campo :attribute debe ser al menos :min.',
+        'string' => 'El campo :attribute debe tener al menos :min caracteres.',
+        'array' => 'El campo :attribute debe tener al menos :min elementos.',
+    ],
+    'regex' => 'El formato de :attribute no es válido.',
+    'required' => 'El campo :attribute es obligatorio.',
+    'string' => 'El campo :attribute debe ser texto.',
+    'unique' => 'El valor de :attribute ya está registrado.',
+    'uploaded' => 'No se pudo subir :attribute (revise el tamaño máximo permitido).',
+
+    'attributes' => [
+        'archivo' => 'archivo',
+        'documento' => 'documento',
+        'nombre' => 'nombre',
+        'pregunta' => 'pregunta',
+        'texto' => 'texto',
+        'modelo' => 'modelo',
+        'estado' => 'estado',
+        'tipo_expediente_id' => 'tipo de expediente',
+        'expediente_id' => 'expediente',
+        'destino_id' => 'tipo destino',
+        'duplicados' => 'manejo de duplicados',
+    ],
+];

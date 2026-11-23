@@ -1,0 +1,55 @@
+{
+  "name": "expediente-judicial-escritorio",
+  "productName": "Expediente Judicial",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de expedientes judiciales con IA local (aplicación de escritorio)",
+  "author": "Expediente Judicial",
+  "license": "MIT",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "preparar": "node scripts/preparar-laravel.mjs",
+    "dist:win": "electron-builder --win --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "gt.expedientejudicial.escritorio",
+    "productName": "Expediente Judicial",
+    "copyright": "Expediente Judicial",
+    "directories": {
+      "output": "dist",
+      "buildResources": "recursos"
+    },
+    "files": [
+      "main.js",
+      "servidor.js",
+      "splash.html",
+      "recursos/icon.png"
+    ],
+    "extraResources": [
+      { "from": "build/laravel", "to": "laravel" },
+      { "from": "build/php", "to": "php" }
+    ],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "recursos/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Expediente Judicial",
+      "uninstallDisplayName": "Expediente Judicial",
+      "installerLanguages": ["es_ES"],
+      "language": "1034",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "ExpedienteJudicial-Instalador-${version}.exe"
+    }
+  }
+}

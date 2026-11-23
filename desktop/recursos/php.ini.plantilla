@@ -1,0 +1,36 @@
+; php.ini de Expediente Judicial (escritorio).
+; El programa reemplaza {{EXT_DIR}} por la ruta real y guarda una copia en la carpeta de datos.
+
+[PHP]
+extension_dir = "{{EXT_DIR}}"
+extension=curl
+extension=fileinfo
+extension=gd
+extension=mbstring
+extension=openssl
+extension=pdo_sqlite
+extension=sqlite3
+extension=zip
+zend_extension=opcache
+
+memory_limit = 512M
+upload_max_filesize = 50M
+post_max_size = 55M
+max_execution_time = 600
+max_input_time = 600
+max_input_vars = 5000
+variables_order = "EGPCS"
+default_charset = "UTF-8"
+display_errors = Off
+display_startup_errors = Off
+log_errors = On
+expose_php = Off
+date.timezone = America/Guatemala
+
+[opcache]
+opcache.enable = 1
+opcache.enable_cli = 1
+opcache.memory_consumption = 128
+opcache.interned_strings_buffer = 16
+opcache.max_accelerated_files = 20000
+opcache.validate_timestamps = 1
