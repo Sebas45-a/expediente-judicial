@@ -46,4 +46,9 @@ if ($datos = getenv('EXPEDIENTE_DATOS')) {
     $app->useEnvironmentPath($datos);
 }
 
+    // En Windows las rutas absolutas empiezan con la unidad (C:\, D:\…); Laravel solo reconoce / y \.
+ if (preg_match('/^[A-Za-z]:[\\\\\/]/', $datos)) {
+        $app->addAbsoluteCachePathPrefix(substr($datos, 0, 3));
+}
+
 return $app;
